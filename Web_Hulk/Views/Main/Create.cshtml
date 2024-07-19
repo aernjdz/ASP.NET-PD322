@@ -7,14 +7,17 @@
             <div className="mb-3 col-md-6">
                 <label>Category Name</label>
                 <input type="text" class="form-control" asp-for="Name" placeholder="Enter Category Name">
+                <span class="text-danger" asp-validation-for="Name"></span>
             </div>
         </div>
         <div className="row">
             <div className="mb-3 col-md-6">
                 <label for="exampleInputPassword1">Image URL</label>
                 <input type="text" class="form-control" asp-for="Image" placeholder="Image URL">
+                <span class="text-danger" asp-validation-for="Image"></span>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+       
     </form>
 </div>
