@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Web_Hulk.Data;
+using Web_Hulk.Data.Entities;
 using Web_Hulk.Models.Categories;
 
 namespace Web_Hulk.Controllers
@@ -20,6 +22,30 @@ namespace Web_Hulk.Controllers
                 Image = x.Image
             }).ToList();
             return View(list);
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+        return View(); 
+        }
+    
+        [HttpPost]
+        public IActionResult Create(CategoryCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var categoryEntity = new CategoryEntity
+                {
+                    Name = model.Name,
+                    Image = model.Image
+                };
+                _context.Categories.Add(categoryEntity);
+                _context.SaveChanges();
+                ViewBag.Message = "Category created successfully!";
+                Console.WriteLine("Category created successfully!");
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
     }
 }

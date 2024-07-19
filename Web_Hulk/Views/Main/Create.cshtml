@@ -1,0 +1,20 @@
+﻿@model Web_Hulk.Models.Categories.CategoryCreateViewModel
+
+<h2 class="text-center">Create Category</h2>
+<div className="row mt-5">
+    <form class="col-md-6 offset-md-3" asp-action="Create" asp-controller="Main" method="post">
+        <div className="row">
+            <div className="mb-3 col-md-6">
+                <label>Category Name</label>
+                <input type="text" class="form-control" asp-for="Name" placeholder="Enter Category Name">
+            </div>
+        </div>
+        <div className="row">
+            <div className="mb-3 col-md-6">
+                <label for="exampleInputPassword1">Image URL</label>
+                <input type="text" class="form-control" asp-for="Image" placeholder="Image URL">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
