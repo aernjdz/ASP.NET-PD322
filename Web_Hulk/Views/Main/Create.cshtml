@@ -1,23 +1,26 @@
-﻿@model Web_Hulk.Models.Categories.CategoryCreateViewModel
+﻿@model CategoryCreateViewModel;
 
-<h2 class="text-center">Create Category</h2>
-<div className="row mt-5">
-    <form class="col-md-6 offset-md-3" asp-action="Create" asp-controller="Main" method="post">
-        <div className="row">
-            <div className="mb-3 col-md-6">
-                <label>Category Name</label>
-                <input type="text" class="form-control" asp-for="Name" placeholder="Enter Category Name">
-                <span class="text-danger" asp-validation-for="Name"></span>
-            </div>
+<div class="container col-md-4 mt-4 ">
+    <h2 class="text-center">Adding a new category</h2>
+
+    <form asp-action="Create" method="post" class="mt-4" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
-        <div className="row">
-            <div className="mb-3 col-md-6">
-                <label for="exampleInputPassword1">Image URL</label>
-                <input type="text" class="form-control" asp-for="Image" placeholder="Image URL">
-                <span class="text-danger" asp-validation-for="Image"></span>
-            </div>
+        <div class="form-group mt-2">
+            <label asp-for="Image"></label>
+            <input asp-for="Image" class="form-control" />
+            <span asp-validation-for="Image" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-       
+
+        <a href="/" class="btn btn-dark mt-4">Cancel</a>
+        <button type="submit" class="btn btn-dark mt-4">Create</button>
     </form>
+
 </div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

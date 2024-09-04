@@ -4,7 +4,11 @@
   "libraries": [
     {
       "library": "bootstrap@5.3.3",
-      "destination": "Views/bootstrap/"
+      "destination": "wwwroot/lib/bootstrap/"
+    },
+    {
+      "library": "bootstrap-icons@1.11.3",
+      "destination": "wwwroot/lib/bootstrap-icons/"
     }
   ]
 }

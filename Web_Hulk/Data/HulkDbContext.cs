@@ -9,6 +9,23 @@ namespace Web_Hulk.Data
         }
 
         public DbSet<CategoryEntity>  Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.ProductImages)
+                .WithOne(pi => pi.Product)
+                .HasForeignKey(pi => pi.ProductId);
+
+            modelBuilder.Entity<ProductImage>()
+                .HasOne(x=> x.Product)
+                .WithMany(x=> x.ProductImages)
+                .HasForeignKey(x => x.ProductId);
+        }
 
     }
 }

@@ -3,13 +3,20 @@
     <head>
         <meta charset="utf-8" />
         <title>Тактичне спорядження</title>
-        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    </head>
-    <body style="padding-top: 5rem;">
-        @await Html.PartialAsync("Partials/_Header");
-        @RenderBody();
-      
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    </body>
+     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+     <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body style="padding-top: 3rem;">
+
+    @await Html.PartialAsync("Partials/_Header")
+
+    @RenderBody();
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
 </html>
-</DOCTYPE>

@@ -1,0 +1,33 @@
+﻿﻿
+@model CategoryEditViewModel;
+
+<div class="container col-md-4 mt-4">
+    <h2 class="text-center">Editing a category</h2>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" class="mt-4">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <label asp-for="NewImage"></label>
+            <input asp-for="NewImage" type="file" class="form-control" />
+            <span asp-validation-for="NewImage" class="text-danger"></span>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <div class="form-group mt-2">
+                <img src="@Url.Content("~/images/" + Model.Image)" alt="Image" style="max-width: 15%; height: auto;" />
+            </div>
+        }
+
+        <a href="/" class="btn btn-dark mt-4">Cancel</a>
+        <button type="submit" class="btn btn-dark mt-4">Update</button>
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
