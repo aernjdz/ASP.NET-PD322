@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Web_Hulk.Data.Entities;
+using Web_Hulk.Data.Entities.Identity;
 
 namespace Web_Hulk.Data
 {
-    public class HulkDbContext : DbContext
+    public class HulkDbContext : IdentityDbContext<UserEntity, RoleEntity, int>
     {
         public HulkDbContext(DbContextOptions<HulkDbContext> options) : base(options) { 
         }
@@ -25,6 +27,17 @@ namespace Web_Hulk.Data
                 .HasOne(x=> x.Product)
                 .WithMany(x=> x.ProductImages)
                 .HasForeignKey(x => x.ProductId);
+
+            //identity Builder
+            modelBuilder.Entity<UserRoleEntity>()
+                .HasOne(x => x.User)
+                .WithMany(r => r.uSerRoles)
+                .HasForeignKey(x => x.UserId);
+
+            modelBuilder.Entity<UserRoleEntity>()
+                .HasOne(x => x.Role)
+                .WithMany(r => r.Roles)
+                .HasForeignKey(r => r.RoleId);
         }
 
     }

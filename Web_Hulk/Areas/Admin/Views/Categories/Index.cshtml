@@ -1,0 +1,65 @@
+﻿﻿
+@model IList<CategoryItemViewModel>
+
+<div class="pagetitle">
+    <h1>Categories</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">Components</li>
+            <li class="breadcrumb-item active">Categories</li>
+        </ol>
+    </nav>
+</div>
+<div class="container mt-3 mb-5">
+    <h2 class="text-center">Categories</h2>
+    <a asp-action="Create" class="btn btn-secondary my-3">Add</a>
+    <div class="row">
+        @foreach (var c in Model)
+        {
+            <div class="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div class="card h-100">
+                    <a asp-action="Index" asp-controller="Products" asp-route-id="@c.Id">
+                        <img class="card-img-top img-fluid" src="/images/@c.Image" alt="@c.Name">
+                    </a>
+
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h6 class="card-title mt-auto">@c.Name</h6>
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@c.Id" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-@c.Id">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            // modal
+            <div class="modal fade" id="deleteModal-@c.Id" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel-@c.Id">Remove a category</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete "@c.Name"?</p>
+                            <form method="post" asp-action="Delete">
+                                <input type="hidden" name="id" value="@c.Id" />
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+</div>

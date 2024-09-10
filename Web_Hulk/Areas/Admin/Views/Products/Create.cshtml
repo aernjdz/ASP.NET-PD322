@@ -1,0 +1,118 @@
+﻿@model ProductCreateViewModel 
+<div class="pagetitle">
+    <h1>Products</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">Components</li>
+            <li class="breadcrumb-item">Products</li>
+            <li class="breadcrumb-item active">Create</li>
+        </ol>
+    </nav>
+</div>
+<div class="container col-md-4">
+    <h2 class="text-center my-4">Adding a new product</h2>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group my-2">
+            <label asp-for="Price" class="control-label"></label>
+            <input asp-for="Price" type="number" min="0" class="form-control" value="" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoryId"></label>
+            <select asp-for="CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                <option disabled selected></option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-3 mb-3">
+            <p class="text-primary text-center">Завантажити фото:</p>
+            <label id="selectImages">
+                <img class="img_upload" src="~/img/input.png" width="120" alt="choose a photo" style="cursor:pointer;" />
+            </label>
+            <input type="file" id="images" multiple class="form-control d-none" />
+            <div class="mt-3 d-flex justify-content-evenly flex-wrap" id="imageContainer"></div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-secondary">Add</button>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+<script>
+
+    let id = 0;
+    const imageContainer = document.getElementById('imageContainer');
+
+    let selectImages = document.getElementById("selectImages");
+    selectImages.addEventListener("click", function () {
+        //Генеруємо id для фото
+        id = generateUniqueId();
+        var fileItem = document.createElement('input');
+        fileItem.type = 'file';
+        fileItem.classList.add('d-none')
+        fileItem.onchange = handleFileSelect;
+        fileItem.name = "photos";
+        fileItem.id = id;
+        imageContainer.appendChild(fileItem);
+        fileItem.click();
+    });
+    function handleFileSelect(event) {
+        const fileInput = event.target;
+
+        if (fileInput.files.length > 0) {
+
+            const imgContainer = document.createElement('div');
+            imgContainer.dataset.id = id; //save input 'id'
+
+            imgContainer.classList.add('img_container');
+
+            const file = fileInput.files[0];
+
+            const imgElement = document.createElement('img');
+            imgElement.classList.add('img_preview');
+            imgElement.src = URL.createObjectURL(file);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = '✕';
+            deleteButton.classList.add('img_preview-delete');
+            deleteButton.type = 'button';
+            deleteButton.addEventListener('click', function () {
+                console.log("file input id ", imgContainer.dataset.id);
+                document.getElementById(imgContainer.dataset.id).remove(); //видаляю також сам input file
+                imageContainer.removeChild(imgContainer); //видаляємо сам контейр для однієї фото
+            });
+            imgContainer.appendChild(imgElement);
+            imgContainer.appendChild(deleteButton);
+            imageContainer.appendChild(imgContainer);
+        }
+    }
+
+    function generateUniqueId() {
+        // Create a timestamp-based part of the ID
+        const timestampPart = new Date().getTime().toString(16);
+
+        // Create a random number part of the ID
+        const randomPart = Math.floor(Math.random() * 1000000).toString(16);
+
+        // Concatenate the two parts to create a unique ID
+        const uniqueId = timestampPart + randomPart;
+
+        return uniqueId;
+    }
+</script>

@@ -1,0 +1,35 @@
+﻿@model ProfileViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4 class="text-center">Profile</h4>
+                </div>
+
+                <div class="card-body ps-4">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th><i class="bi bi-person-fill me-2"></i>Name:</th>
+                                <td class="w-75">@Model.FullName</td>
+                            </tr>
+
+                            <tr>
+                                <th><i class="bi bi-envelope-fill me-2"></i>Email:</th>
+                                <td class="w-75">@Model.Email</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-action="Index" asp-controller="Main" class="btn btn-outline-secondary">Home</a>
+            </div>
+
+        </div>
+    </div>
+</div>

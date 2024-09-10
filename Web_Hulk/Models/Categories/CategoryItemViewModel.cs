@@ -1,5 +1,4 @@
-﻿
-namespace Web_Hulk.Models.Categories
+﻿namespace Web_Hulk.Models.Categories
 {
     public class CategoryItemViewModel
     {
@@ -7,6 +6,6 @@ namespace Web_Hulk.Models.Categories
         public string Name { get; set; } = string.Empty;
         public string Image { get; set; }
         = string.Empty;
-      
+
     }
 }
