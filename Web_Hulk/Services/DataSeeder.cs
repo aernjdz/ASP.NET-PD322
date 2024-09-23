@@ -22,7 +22,7 @@ namespace Web_Hulk.Services
         _roleManager = roleManager;
             _imageWorker = imageWorker;
     }
-        public void SeedProducts()
+        public async Task SeedProducts()
         {
             if (!_context.Products.Any())
             {

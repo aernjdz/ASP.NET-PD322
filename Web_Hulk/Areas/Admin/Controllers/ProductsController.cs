@@ -26,7 +26,8 @@ namespace Web_Hulk.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var list = _context.Products.ProjectTo<ProductItemViewModel>(_mapper.ConfigurationProvider)
+            var list = _context.Products
+                  .ProjectTo<ProductItemViewModel>(_mapper.ConfigurationProvider)
                   .ToList() ?? throw new Exception("Failed to get products");
 
             return View(list);
@@ -114,8 +115,8 @@ namespace Web_Hulk.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var product = await _context.Products.FirstOrDefaultAsync
-               (p => p.Id == model.Id)
+            var product = await _context.Products
+                .FirstOrDefaultAsync(p => p.Id == model.Id)
                 ?? throw new Exception("No product was found");
 
             _mapper.Map(model, product);

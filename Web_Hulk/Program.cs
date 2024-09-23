@@ -89,7 +89,7 @@ using (var scope = app.Services.CreateScope())
     //dbContext.Database.EnsureDeleted();
     dbContext.Database.Migrate();
     var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
-    seeder.SeedProducts();
+    await  seeder.SeedProducts();
     await seeder.SeedRolesAndUsers();
 }
 

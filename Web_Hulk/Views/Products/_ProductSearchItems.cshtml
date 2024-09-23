@@ -1,0 +1,46 @@
+﻿@model ProductSearchViewModel
+
+<form method="post" asp-action="Index">
+    <div class="d-flex align-items-end">
+
+        <div class="col-md-3">
+            <div>
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="mx-3">
+                <label asp-for="CategoryId" class="form-label"></label>
+                <select class="form-select" asp-for="CategoryId">
+                    <option selected style="color: lightgrey;">All Categories </option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center mt-3">
+        <label>Sort by: </label>
+        <div class="mx-2">
+            <select class="form-select" name="sortBy" onchange="this.form.submit()">
+                <option disabled selected></option>
+                <option>Name</option>
+                <option value="PriceAsc">Price (Low to High)</option>
+                <option value="PriceDesc">Price (High to Low)</option>
+            </select>
+        </div>
+    </div>
+
+    <input type="hidden" name="page" value="@Model.Page">
+    <input type="hidden" name="pageSize" value="@Model.PageSize">
+</form>
